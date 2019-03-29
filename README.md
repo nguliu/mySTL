@@ -1,2 +1,2 @@
 # mySTL
-This is my STL code.
+This is my C++ Standard Template Libary.
