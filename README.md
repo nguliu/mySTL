@@ -1,6 +1,7 @@
 ## mySTL
 
-简易实现了常用的C++STL容器和算法，其中的技术点主要包括：常用算法实现、空间配置器、内存池、__type_traits、iterator、string、vector、
+简易实现了常用的C++STL容器和算法 
+其中的技术点主要包括：常用STL算法实现、空间配置器、内存池、__type_traits、iterator、string、vector、list、deque、stack、queue、heap、priority_queue、slist、rb-tree、map、set、hashtable、hash_map、hash_set
 
 
 ## 内容如下：
