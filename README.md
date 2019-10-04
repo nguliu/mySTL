@@ -21,6 +21,6 @@
   
 - 2stl_algobase.h: 实现了常用的STL算法，其中利用__type_traits对算法进行了优化  
   
-- 3stl_string.{h,cc}: string的实现  
+- 3stl_string.{h,cc}: string实际是对char* 的封装  
   
-- 4stl_vector.h: vector实现  
+- 4stl_vector.h: vector具有array的有点同时又有许多高效的优化，主要优点有顺序存储、随机访问、动态扩容、预分配等  
