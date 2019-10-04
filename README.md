@@ -23,4 +23,4 @@
   
 - 3stl_string.{h,cc}: string实际是对char* 的封装  
   
-- 4stl_vector.h: vector具有array的有点同时又有许多高效的优化，主要优点有顺序存储、随机访问、动态扩容、预分配等  
+- 4stl_vector.h: vector具有array的有点同时又有许多高效的优化，主要优点有顺序存储、随机访问、动态扩容、预分配等，它的插入操作和删除操作容易导致迭代器的失效  
