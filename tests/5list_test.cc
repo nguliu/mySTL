@@ -1,5 +1,5 @@
-#include "../mySTL/5stl_list.h"
-#include "../mySTL/2stl_algobase.h"
+#include <mySTL/5stl_list.h>
+#include <mySTL/2stl_algobase.h>
 //#include <iostream>
 
 using namespace lfp;
