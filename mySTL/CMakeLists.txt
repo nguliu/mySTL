@@ -20,9 +20,8 @@ set(HEADERS
 	3stl_string.h
 	4stl_vector.h
 	5stl_list.h
-<<<<<<< HEAD
-=======
 	6stl_deque.h
->>>>>>> add deque
+	7stl_stack.h
+	8stl_queue.h
 )
 install(FILES ${HEADERS} DESTINATION include)
