@@ -14,3 +14,7 @@ add_executable(6deque_test 6deque_test.cc)
 add_executable(7stack_test 7stack_test.cc)
 
 add_executable(8queue_test 8queue_test.cc)
+
+add_executable(9heap_test 9heap_test.cc)
+
+add_executable(9priority_queue_test 9priority_queue_test.cc)

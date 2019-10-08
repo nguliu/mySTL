@@ -39,6 +39,7 @@ inline size_t __deque_buf_size(size_t buf_size, size_t val_size) {
 		typedef random_access_iterator_tag	iterator_category;
 		typedef T							value_type;
 		typedef Ptr							pointer;
+		typedef const Ptr					const_pointer;
 		typedef Ref							reference;
 		typedef const Ref					const_reference;
 		typedef ptrdiff_t					difference_type;
@@ -156,8 +157,10 @@ inline size_t __deque_buf_size(size_t buf_size, size_t val_size) {
 	public:			//Basic types
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::iterator_category	category;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::iterator				iterator;
+		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::const_iterator		const_iterator;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::value_type			value_type;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::pointer				pointer;
+		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::const_pointer		const_pointer;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::reference			reference;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::const_reference		const_reference;
 		typedef typename detail::__deque_iterator<T, T&, T*, BufSize>::size_type			size_type;
@@ -225,16 +228,25 @@ inline size_t __deque_buf_size(size_t buf_size, size_t val_size) {
 		}
 
 		iterator begin() { return start; }
+		const_iterator begin() const { return start; }
 		iterator end() { return finish; }
+		const_iterator end() const { return finish; }
 		reference operator[](size_type n) {
 			return start[difference_type(n)];		//调用 __deque_iterator<>::operator[]
 		}
 		reference front() { return *start; }		//调用 __deque_iterator<>::operator*
+		const_reference front() const { return *start; }		//调用 __deque_iterator<>::operator*
 		reference back() {
 			iterator tmp = finish;
 			--tmp;			//调用 __deque_iterator<>::operator--
 			return *tmp;	//调用 __deque_iterator<>::operator*
-			
+			//以上三行不能改为 return *(finish - 1) 
+			//因为 operator-(difference_type n) 的操作比 -- 复杂很多
+		}
+		const_reference back() const {
+			iterator tmp = finish;
+			--tmp;			//调用 __deque_iterator<>::operator--
+			return *tmp;	//调用 __deque_iterator<>::operator*
 			//以上三行不能改为 return *(finish - 1) 
 			//因为 operator-(difference_type n) 的操作比 -- 复杂很多
 		}

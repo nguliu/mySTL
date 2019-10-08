@@ -25,20 +25,22 @@ namespace lfp {
 
 	public:
                 
-		typedef char			value_type;
-                
-		typedef value_type*		pointer;
-                
-		typedef value_type*		iterator;
-                
-		typedef value_type&		reference;
-                
-		typedef size_t			size_type;
+		typedef char				value_type;
+		typedef value_type*			pointer;
 
-		typedef ptrdiff_t		difference_type;
+		typedef const value_type*	const_pointer;
 
-		typedef string			self;
-                
+		typedef value_type*			iterator;
+		typedef const value_type*	const_iterator;
+		typedef value_type&			reference;
+
+		typedef const value_type&	const_reference;
+
+		typedef size_t				size_type;
+
+		typedef ptrdiff_t			difference_type;
+
+		typedef string				self;
 	private:
 		size_t size_;
                     
@@ -100,8 +102,8 @@ namespace lfp {
 		char& operator[](size_t pos);
 		const char& operator[](size_t pos) const;
 
-                            string& operator=(const string& str);
-                        
+        string& operator=(const string& str);
+
 		string& operator=(const char* s);
                         
 		string& operator=(char c);

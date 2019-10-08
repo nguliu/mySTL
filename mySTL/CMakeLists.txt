@@ -23,5 +23,7 @@ set(HEADERS
 	6stl_deque.h
 	7stl_stack.h
 	8stl_queue.h
+	9stl_heap.h
+	9stl_priority_queue.h
 )
 install(FILES ${HEADERS} DESTINATION include)

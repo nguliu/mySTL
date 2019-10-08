@@ -20,12 +20,15 @@ namespace lfp {
 	class vector {
 	public:
 		//vector的嵌套型别定义
-		typedef T				value_type;
-		typedef value_type*		pointer;
-		typedef value_type*		iterator;
-		typedef value_type&		reference;
-		typedef size_t			size_type;
-		typedef ptrdiff_t		difference_type;
+		typedef T					value_type;
+		typedef value_type*			pointer;
+		typedef const value_type*	const_pointer;
+		typedef value_type*			iterator;
+		typedef const value_type*	const_iterator;
+		typedef value_type&			reference;
+		typedef const value_type&	const_reference;
+		typedef size_t				size_type;
+		typedef ptrdiff_t			difference_type;
 
 	private:
 		//simple_alloc是SGI STL的空间配置器
@@ -86,12 +89,17 @@ namespace lfp {
 		}
 
 		iterator begin() { return start; }
+		const_iterator begin() const { return start; }
 		iterator end() { return finish; }
+		const_iterator end() const { return finish; }
 		size_type size() const { return finish - start; }
 		size_type capacity() const { return end_of_storage - start; }
 		reference operator[](size_type n) { return *(start + n); }
+		const_reference operator[](size_type n) const { return *(start + n); }
 		reference front() { return *begin(); }
+		const_reference front() const { return *begin(); }
 		reference back() { return *(end() - 1); }
+		const_reference back() const { return *(end() - 1); }
 
 		/* 在pos位置插入n个元素x */
 		void insert(iterator pos, size_type n, const T& x) {

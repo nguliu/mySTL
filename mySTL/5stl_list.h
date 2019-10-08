@@ -29,15 +29,18 @@ namespace detail {
 	template<class T, class Ref = T&, class Ptr = T*>
 	struct __list_iterator {
 	public:
-		typedef __list_iterator<T, Ref, Ptr>	self;
-		typedef __list_iterator<T, T&, T*>		iterator;
-		typedef bidirectional_iterator_tag		iterator_category;		//双向迭代器
-		typedef T								value_type;
-		typedef Ptr								pointer;
-		typedef Ref								reference;
-		typedef size_t							size_type;
-		typedef ptrdiff_t						difference_type;
-		typedef __node_type<T>*					node_pointer;
+		typedef __list_iterator<T, Ref, Ptr>		self;
+		typedef __list_iterator<T, T&, T*>			iterator;
+		typedef const __list_iterator<T, T&, T*>	const_iterator;
+		typedef bidirectional_iterator_tag			iterator_category;		//双向迭代器
+		typedef T									value_type;
+		typedef Ptr									pointer;
+		typedef const Ptr							const_pointer;
+		typedef Ref									reference;
+		typedef const Ref							const_reference;
+		typedef size_t								size_type;
+		typedef ptrdiff_t							difference_type;
+		typedef __node_type<T>*						node_pointer;
 
 		node_pointer node;		//迭代器内部拥有一个指针，指向list的节点
 
@@ -88,10 +91,13 @@ namespace detail {
 		typedef typename detail::__list_iterator<T, T&, T*>::node_pointer		node_pointer;
 
 		typedef typename detail::__list_iterator<T, T&, T*>::iterator			iterator;
+		typedef typename detail::__list_iterator<T, T&, T*>::const_iterator		const_iterator;
 		typedef typename detail::__list_iterator<T, T&, T*>::iterator_category	category;
 		typedef typename detail::__list_iterator<T, T&, T*>::value_type			value_type;
 		typedef typename detail::__list_iterator<T, T&, T*>::pointer			pointer;
+		typedef typename detail::__list_iterator<T, T&, T*>::const_pointer		const_pointer;
 		typedef typename detail::__list_iterator<T, T&, T*>::reference			reference;
+		typedef typename detail::__list_iterator<T, T&, T*>::const_reference	const_reference;
 		typedef typename detail::__list_iterator<T, T&, T*>::size_type			size_type;
 		typedef typename detail::__list_iterator<T, T&, T*>::difference_type	difference_type;
 	protected:
@@ -144,12 +150,16 @@ namespace detail {
 
 		//这里会构造一个iterator对象
 		iterator begin() { return (*node).next; }
+		const_iterator begin() const { return (*node).next; }
 		iterator end() { return node; }
+		const_iterator end() const { return node; }
 		bool empty() const { return node->next == node;	}
 		size_type size() const { return size_;  }
 
 		reference front() { return *begin(); }
+		const_reference front() const { return *begin(); }
 		reference back() { return *(--end()); }
+		const_reference back() const { return *(--end()); }
 
 		//在迭代器pos所指位置插入一个节点，返回插入后该位置的迭代器
 		iterator insert(iterator pos, const T& x);
