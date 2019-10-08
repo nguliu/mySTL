@@ -493,7 +493,7 @@ namespace detail {		//这一级namespace下是stl下内部实现细节
 		T operator()(const T& x) const { return -x; }
 	};
 
-/* 以下为 + - * / % < 运算符的仿函数 */
+/* 以下为 + - * / % < > 运算符的仿函数 */
 	template<class T>
 	struct plus : public binary_function<T, T, T> {
 		T operator()(const T& x, const T& y) const {
@@ -528,6 +528,12 @@ namespace detail {		//这一级namespace下是stl下内部实现细节
 	struct less : public binary_function<T, T, bool> {
 		bool operator()(const T& x, const T& y) const {
 			return x < y;
+		}
+	};
+	template<class T>
+	struct greater : public binary_function<T, T, bool> {
+		bool operator()(const T& x, const T& y) const {
+			return x > y;
 		}
 	};
 
