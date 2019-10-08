@@ -37,7 +37,7 @@
   
 - 9stl_priority_queue.h: 优先级队列的实现，这是一个配接器而不是一个容器，它默认以vector为底层容器，通过heap调用相关算法，维持底层容器中的元素保持堆的特性  
   
-- 10stl_slist.h: slist和list最大的区别在于，前者的迭代器属于单向的ForwardIterator，而后者是双向迭代器BidirectionalIterator。因此slist的功能就受到很多限制，但slist消耗的空间更少。和list一样，它们的插入、移除、接合等操作不会造成原有的迭代器失效。
+- 10stl_slist.h: slist和list最大的区别在于，前者的迭代器属于单向的ForwardIterator，而后者是双向迭代器BidirectionalIterator。因此slist的功能就受到很多限制，但slist消耗的空间更少。和list一样，它们的插入、移除、接合等操作不会造成原有的迭代器失效。  
 注意：根据STL的习惯，插入操作会将元素插入到迭代器所指位置之前而不是之后，但slist没办法快速找到其前一个节点，只能从头遍历，这便是slist最大的缺点，因此slist不提供push_back操作，只提供insert_after、erase_after、push_front操作  
   
 ## Environment
