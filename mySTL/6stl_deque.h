@@ -17,32 +17,32 @@ namespace detail {
 
 /* 全局函数: 用于辅助决定缓冲区大小
  * 如果buf_size不为0，传回由用户定义的buf_size，表示一个缓冲区可以容纳 buf_size 个元素
- * 如果 buf_size 为0，表示 buffer size 使用默认值，那么：
- * 	 如果 val_size(sizeof(value_type))小于512，返回 512 / val_size，一个缓冲区可容纳 512 / val_size 个元素
- * 	 如果 val_size >= 512，返回 1，一个缓冲区可容纳 1 个元素
- */
-inline size_t __deque_buf_size(size_t buf_size, size_t val_size) {
-	return (buf_size != 0) ? buf_size
-			: ( (val_size < 512) ? size_t(512 / val_size) : size_t(1) );
-}
-
-
-/* deque 迭代器的设计 */
-	template<class T, class Ref, class Ptr, size_t BufSize>
-	struct __deque_iterator {
-	public:
-		static size_t buffer_size() { return __deque_buf_size(BufSize, sizeof(T)); }
-		typedef __deque_iterator<T, T&, T*, BufSize>				iterator;
-		typedef __deque_iterator<T, const T&, const T*, BufSize>	const_iterator;
-
-		//未继承 std::iterato 必须自行定义五个必要迭代器相应型别
-		typedef random_access_iterator_tag	iterator_category;
-		typedef T							value_type;
-		typedef Ptr							pointer;
-		typedef const Ptr					const_pointer;
-		typedef Ref							reference;
-		typedef const Ref					const_reference;
-		typedef ptrdiff_t					difference_type;
+// * 如果 buf_size 为0，表示 buffer size 使用默认值，那么：
+// * 	 如果 val_size(sizeof(value_type))小于512，返回 512 / val_size，一个缓冲区可容纳 512 / val_size 个元素
+// * 	 如果 val_size >= 512，返回 1，一个缓冲区可容纳 1 个元素
+// */
+//inline size_t __deque_buf_size(size_t buf_size, size_t val_size) {
+//	return (buf_size != 0) ? buf_size
+//			: ( (val_size < 512) ? size_t(512 / val_size) : size_t(1) );
+//}
+//
+//
+///* deque 迭代器的设计 */
+//	template<class T, class Ref, class Ptr, size_t BufSize>
+//	struct __deque_iterator {
+//	public:
+//		static size_t buffer_size() { return __deque_buf_size(BufSize, sizeof(T)); }
+//		typedef __deque_iterator<T, T&, T*, BufSize>				iterator;
+//		typedef __deque_iterator<T, const T&, const T*, BufSize>	const_iterator;
+//
+//		//未继承 std::iterato 必须自行定义五个必要迭代器相应型别
+//		typedef random_access_iterator_tag	iterator_category;
+//		typedef T							value_type;
+//		typedef Ptr							pointer;
+//		typedef const Ptr					const_pointer;
+//		typedef Ref							reference;
+//		typedef const Ref					const_reference;
+//		typedef ptrdiff_t					difference_type;
 
 		typedef size_t						size_type;
 		typedef T**							map_pointer;

@@ -23,27 +23,27 @@ namespace detail {
 					  T value,							// 需要上溯的元素值
 					  Compare comp)						// 元素权值比较规则
 	{
-		Distance holeParent = (holeIndex - 1) / 2;		//找到洞号的父节点
-
-		/* 当尚未达到顶端且value权值更高 */
-		while (holeIndex > topIndex && comp(*(first + holeParent), value))
-		{
-			*(first + holeIndex) = *(first + holeParent);	//令洞值为父节点值
-			holeIndex = holeParent;							//调整洞号，向上提升至父节点
-			holeParent = (holeIndex - 1) / 2;				//找到新洞号的父节点
-		}
-		/* 填充洞号，上溯操作完成 */
-		*(first + holeIndex) = value;
-	}
-
-/* 下溯程序 */
-	template<class RandomAccessIterator, class Distance, class T, class Compare>
-	void percolate_down(RandomAccessIterator first,		// 底部容器的起始位置
-						Distance holeIndex,				// 洞号（即需要下溯的位置与first的距离）
-						Distance len,					// 堆的长度
-						T value,						// 需要下溯的元素值
-						Compare comp)					// 元素权值比较规则
-	{
+//		Distance holeParent = (holeIndex - 1) / 2;		//找到洞号的父节点
+//
+//		/* 当尚未达到顶端且value权值更高 */
+//		while (holeIndex > topIndex && comp(*(first + holeParent), value))
+//		{
+//			*(first + holeIndex) = *(first + holeParent);	//令洞值为父节点值
+//			holeIndex = holeParent;							//调整洞号，向上提升至父节点
+//			holeParent = (holeIndex - 1) / 2;				//找到新洞号的父节点
+//		}
+//		/* 填充洞号，上溯操作完成 */
+//		*(first + holeIndex) = value;
+//	}
+//
+///* 下溯程序 */
+//	template<class RandomAccessIterator, class Distance, class T, class Compare>
+//	void percolate_down(RandomAccessIterator first,		// 底部容器的起始位置
+//						Distance holeIndex,				// 洞号（即需要下溯的位置与first的距离）
+//						Distance len,					// 堆的长度
+//						T value,						// 需要下溯的元素值
+//						Compare comp)					// 元素权值比较规则
+//	{
 		Distance largerChild = 2 * (holeIndex + 1);		//找到洞号的右子节点
 		while (largerChild < len)		//走完所有左右孩子都有的节点
 		{

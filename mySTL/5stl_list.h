@@ -21,28 +21,28 @@ namespace detail {
 	struct __node_type {
 		typedef __node_type<T>* node_pointer;
 		node_pointer prev;		//型别为__node_type<T>*，也可设为 void*
-		node_pointer next;
-		T data;
-	};
-
-/* 以下是list迭代器设计，型别为双向迭代器 */
-	template<class T, class Ref = T&, class Ptr = T*>
-	struct __list_iterator {
-	public:
-		typedef __list_iterator<T, Ref, Ptr>		self;
-		typedef __list_iterator<T, T&, T*>			iterator;
-		typedef const __list_iterator<T, T&, T*>	const_iterator;
-		typedef bidirectional_iterator_tag			iterator_category;		//双向迭代器
-		typedef T									value_type;
-		typedef Ptr									pointer;
-		typedef const Ptr							const_pointer;
-		typedef Ref									reference;
-		typedef const Ref							const_reference;
-		typedef size_t								size_type;
-		typedef ptrdiff_t							difference_type;
-		typedef __node_type<T>*						node_pointer;
-
-		node_pointer node;		//迭代器内部拥有一个指针，指向list的节点
+//		node_pointer next;
+//		T data;
+//	};
+//
+///* 以下是list迭代器设计，型别为双向迭代器 */
+//	template<class T, class Ref = T&, class Ptr = T*>
+//	struct __list_iterator {
+//	public:
+//		typedef __list_iterator<T, Ref, Ptr>		self;
+//		typedef __list_iterator<T, T&, T*>			iterator;
+//		typedef const __list_iterator<T, T&, T*>	const_iterator;
+//		typedef bidirectional_iterator_tag			iterator_category;		//双向迭代器
+//		typedef T									value_type;
+//		typedef Ptr									pointer;
+//		typedef const Ptr							const_pointer;
+//		typedef Ref									reference;
+//		typedef const Ref							const_reference;
+//		typedef size_t								size_type;
+//		typedef ptrdiff_t							difference_type;
+//		typedef __node_type<T>*						node_pointer;
+//
+//		node_pointer node;		//迭代器内部拥有一个指针，指向list的节点
 
 		//constructor
 		__list_iterator() { }
