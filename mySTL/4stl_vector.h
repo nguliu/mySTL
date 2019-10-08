@@ -17,32 +17,32 @@ namespace lfp {
 
 	//省缺使用第二级空间配置器
 	template<class T, class Alloc = alloc>
-//	class vector {
-//	public:
-//		//vector的嵌套型别定义
-//		typedef T					value_type;
-//		typedef value_type*			pointer;
-//		typedef const value_type*	const_pointer;
-//		typedef value_type*			iterator;
-//		typedef const value_type*	const_iterator;
-//		typedef value_type&			reference;
-//		typedef const value_type&	const_reference;
-//		typedef size_t				size_type;
-//		typedef ptrdiff_t			difference_type;
-//
-//	private:
-//		//simple_alloc是SGI STL的空间配置器
-//		typedef simple_alloc<value_type, Alloc> data_allocator;
-//		iterator start;				//目前使用空间的头
-//		iterator finish;			//目前使用空间的尾
-//		iterator end_of_storage;	//目前可用空间的尾
-//
-//		//内部函数，调用构造器释放vector占用的所有空间
-//		void deallocate() {
-//			if (start) {
-//				data_allocator::deallocate(start, end_of_storage - start);
-//			}
-//			start = 0;
+	class vector {
+	public:
+		//vector的嵌套型别定义
+		typedef T					value_type;
+		typedef value_type*			pointer;
+		typedef const value_type*	const_pointer;
+		typedef value_type*			iterator;
+		typedef const value_type*	const_iterator;
+		typedef value_type&			reference;
+		typedef const value_type&	const_reference;
+		typedef size_t				size_type;
+		typedef ptrdiff_t			difference_type;
+
+	private:
+		//simple_alloc是SGI STL的空间配置器
+		typedef simple_alloc<value_type, Alloc> data_allocator;
+		iterator start;				//目前使用空间的头
+		iterator finish;			//目前使用空间的尾
+		iterator end_of_storage;	//目前可用空间的尾
+
+		//内部函数，调用构造器释放vector占用的所有空间
+		void deallocate() {
+			if (start) {
+				data_allocator::deallocate(start, end_of_storage - start);
+			}
+			start = 0;
 			finish = 0;
 			end_of_storage = 0;
 		}
