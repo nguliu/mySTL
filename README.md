@@ -33,6 +33,10 @@
   
 - 8stl_queue.h: queue是单向队列，它与stack一样，都是一个配接器，其内部使用list作为底层容器（也可使用deque、vector等），它通过底层容器实现对外操作，因而实现非常简单  
   
+- 9stl_heap.h: heap并不属于标准库的内容，这里主要提供push_heap、pop_head、sort_heap、make_heap几个泛型算法，它们接受一对迭代器和一个权值比较规则，对底层容器中迭代器范围内的元素进行相应操作，从而维持底层容器堆的特性  
+  
+- 9stl_priority_queue.h: 优先级队列的实现，这是一个配接器而不是一个容器，它默认以vector为底层容器，通过heap调用相关算法，维持底层容器中的元素保持堆的特性  
+  
 ## Environment
 - OS: Ubuntu 18.04
 - Kernel: 5.0.0-27-generic
