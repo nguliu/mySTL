@@ -14,6 +14,7 @@
 
 namespace lfp {
 
+
 	//省缺使用第二级空间配置器
 	template<class T, class Alloc = alloc>
 	class vector {
@@ -164,13 +165,46 @@ namespace lfp {
 		}
 
 		void resize(size_type new_sz) {
-			resize(new_sz, T());
+			resize(new_sz, (T)0);
+		}
+
+		//预留reser_size个空间
+		void reserve(size_type reser_size) {
+			if (reser_size <= capacity())
+				return;
+
+			//首先决定新长度：旧长度的两倍或新插入元素长度的两倍
+			const size_type old_capacity = capacity();
+			const size_type new_capacity = 2 * max(old_capacity, reser_size);
+
+			//以下配置新的 vector 空间
+			iterator new_start = data_allocator::allocate(new_capacity);
+			iterator new_finish = new_start;
+			try{
+				//将旧 vector 中的元素复制到新空间中
+				new_finish = uninitialized_copy(start, finish, new_start);
+
+			} catch (...) {
+				//捕获到异常，执行相应的销毁工作。注意：因为uninitialized_copy、uninitialized_fill_n都遵循
+				//commit or rollback原则，所以构造失败时不需要自己执行对象销毁工作，只需要释放申请的内存就好
+				data_allocator::deallocate(new_start, new_capacity);
+				throw;		//注意要向高层抛出异常
+			}
+
+			//析构并释放原 vector
+			destroy(begin(), end());
+			deallocate();
+
+			//以下调整水位标记
+			start = new_start;
+			finish = new_finish;
+			end_of_storage = new_start + new_capacity;
 		}
 
 		void swap(vector<T>& rhs) {
-			swap(start, rhs.start);
-			swap(end, rhs.end);
-			swap(end_of_storage, rhs.end_of_storage);
+			lfp::swap(start, rhs.start);
+			lfp::swap(finish, rhs.finish);
+			lfp::swap(end_of_storage, rhs.end_of_storage);
 		}
 
 		void clear() {

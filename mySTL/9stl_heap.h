@@ -121,8 +121,7 @@ namespace detail {
 
 
 
-/*  以下是标准算法接口  */
-
+/*  以下是标准的heap算法接口  */
 
 /* push_heap */
 	//此函数被调用时，新元素已经插入底部容器尾部 last-1 位置，且 [first, last-1) 满足heap要求，否则结果不可预期

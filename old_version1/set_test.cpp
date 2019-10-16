@@ -36,12 +36,6 @@ int main() {
 	std::cout << std::endl << std::endl;
 
 	return 0;
-<<<<<<< HEAD
+
 }
-=======
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> update
->>>>>>> update
+

@@ -26,5 +26,15 @@ set(HEADERS
 	9stl_heap.h
 	9stl_priority_queue.h
 	10stl_slist.h
+	11stl_rbtree.h
+	12stl_set.h
+	13stl_multiset.h
+	14stl_map.h
+	15stl_multimap.h
+	16stl_hashtable.h
+	17stl_hash_set.h
+	18stl_hash_multiset.h
+	19stl_hash_map.h
+	20stl_hash_multimap.h
 )
 install(FILES ${HEADERS} DESTINATION include)
