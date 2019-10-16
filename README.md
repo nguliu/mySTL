@@ -40,6 +40,18 @@
 - 10stl_slist.h: slist和list最大的区别在于，前者的迭代器属于单向的ForwardIterator，而后者是双向迭代器BidirectionalIterator。因此slist的功能就受到很多限制，但slist消耗的空间更少。和list一样，它们的插入、移除、接合等操作不会造成原有的迭代器失效。  
 注意：根据STL的习惯，插入操作会将元素插入到迭代器所指位置之前而不是之后，但slist没办法快速找到其前一个节点，只能从头遍历，这便是slist最大的缺点，因此slist不提供push_back操作，只提供insert_after、erase_after、push_front操作  
   
+- 11stl_rbtree.h: 红黑树的实现。红黑树是一种运用及广的自平衡二叉搜索树，可提供对数时间的插入和访问操作，其平衡性不如AVL树高，因此其维护平衡性的成本也不如AVL树高，相当于在平衡性和效率之间取了折中。这里主要实现了红黑树的数据结构、旋转算法、插入算法、删除算法等，其中删除算法是最难但又必须使用的，对于删除过程不了解的同学请[点这里](https://blog.csdn.net/qq_40843865/article/details/102498310)  
+  
+- 12stl_set.h: set提供快速的查找功能，其特性是：所有元素都会根据元素的键值自动排序，对set执行添加或删除操作时，操作之前的所有迭代器和操作之后的所有迭代器都依然有效。set使用rb-tree作为底层容器，rb-tree提供了所有set需要的操作，set使用rb-tree的insert_unique来插入元素  
+  
+- 13stl_multiset.h: multiset具有set所有的性质，唯一不同的是，multiset允许键值重复，它使用使用红黑树的insert_equal进行插入操作  
+  
+- 14stl_map.h: map的特性是：所有元素都会根据元素的键值被自动排序，map的所有元素都是pair，同时拥有实值（value）和键值（key），pair的第一元素被视为键值，第二元素被视为实值，通常通过仿函数select提取出节点的键值进行比较，我们能修改节点的实值但不能修改其键值，对其他元素操作时，其之前和之后的迭代器也都不回失效。map使用rb-tree作为底层容器，rb-tree提供了所有map需要的操作，map使用RB_tree的 insert_unique 来插入元素  
+  
+- 15stl_multimap.h: multimap具有map所有的性质，唯一不同的是，multimap允许键值重复，它使用使用红黑树的insert_equal进行插入操作  
+  
+- 16stl_hashtable.h: 二叉搜索树具有对数平均时间的表现，但这样的表现是构造在一个假设上的：输入的数据具有足够的随机性，对于hashtable，它在插入、删除、搜寻等操作上也具有“常数平均时间”的表现，而且这种次表现是以统计为基础，不需要依赖数据输入的随机性。hashtable可提供对任何有名项的存取操作和删除操作，所以hashtable也可以被看做一种字典结构  
+  
 ## Environment
 - OS: Ubuntu 18.04
 - Kernel: 5.0.0-27-generic
