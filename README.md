@@ -1,8 +1,12 @@
 ## mySTL
 
 简易实现了常用的C++STL容器和算法  
-其中的技术点主要包括：常用STL算法实现、空间配置器、内存池、__type_traits、iterator、string、vector、list、deque、stack、queue、heap、priority_queue、slist、rb-tree、map、set、hashtable、hash_map、hash_set  
   
+其中的技术点主要包括：常用STL算法实现、空间配置器、内存池、内存初始化工具、__type_traits、iterator、string、vector、list、deque、stack、queue、heap、priority_queue、slist、rb-tree、map、set、hashtable、hash_map、hash_set  
+  
+  
+## 项目目的
+在以前学习数据结构与算法的过程中，更多的我们是从概念和简单实现上来学习，从来没有学习过在生产环境下它们非常重要是如何体现又是如何被运用的，如何将其封装为通用的、高效的数据组织工具，那么，C++STL正弥补了这方面的空缺，STL作为C++的重要组件，它提供了很多方便的工具和算法，用好它能使我们的开发效率和代码运行效率得到极大的提升，那么这个项目正好可以使我们了解STL背后的实现机制，能够提升我们运用STL的功力，还能够看到学长学姐们一直强调的“数据结构非常重要”是如何运用于生产环境中的，用侯捷的话说——源码面前，了无秘籍。
   
 ## 主要内容如下：  
 - 0jjalloc.h: 很简易的空间配置器，通过它可以了解空间配置器原理和new运算符、delete运算符背后的机制  
@@ -40,20 +44,28 @@
 - 10stl_slist.h: slist和list最大的区别在于，前者的迭代器属于单向的ForwardIterator，而后者是双向迭代器BidirectionalIterator。因此slist的功能就受到很多限制，但slist消耗的空间更少。和list一样，它们的插入、移除、接合等操作不会造成原有的迭代器失效。  
 注意：根据STL的习惯，插入操作会将元素插入到迭代器所指位置之前而不是之后，但slist没办法快速找到其前一个节点，只能从头遍历，这便是slist最大的缺点，因此slist不提供push_back操作，只提供insert_after、erase_after、push_front操作  
   
-- 11stl_rbtree.h: 红黑树的实现。红黑树是一种运用及广的自平衡二叉搜索树，可提供对数时间的插入和访问操作，其平衡性不如AVL树高，因此其维护平衡性的成本也不如AVL树高，相当于在平衡性和效率之间取了折中。这里主要实现了红黑树的数据结构、旋转算法、插入算法、删除算法等，其中删除算法是最难但又必须使用的，对于删除过程不了解的同学请[点这里](https://blog.csdn.net/qq_40843865/article/details/102498310)  
+- 11stl_rbtree.h: 红黑树是一种运用及广的自平衡二叉搜索树，可提供对数时间的插入和访问操作，其平衡性不如AVL树高，因此其维护平衡性的成本也不如AVL树高，相当于在平衡性和效率之间取了折中。这里主要实现了红黑树的数据结构、旋转算法、插入算法、删除算法等，其中删除算法是最难但又必须使用的，对于删除过程不了解的同学请[点这里](https://blog.csdn.net/qq_40843865/article/details/102498310)  
   
-- 12stl_set.h: set提供快速的查找功能，其特性是：所有元素都会根据元素的键值自动排序，对set执行添加或删除操作时，操作之前的所有迭代器和操作之后的所有迭代器都依然有效。set使用rb-tree作为底层容器，rb-tree提供了所有set需要的操作，set使用rb-tree的insert_unique来插入元素  
+- 12stl_set.h: set提供快速的查找功能，其特性是：所有元素都会根据元素的键值自动排序，对set执行添加或删除操作时，操作之前的所有迭代器和操作之后的所有迭代器都依然有效。set使用rb-tree作为底层容器，rb-tree提供了所有set需要的操作，set不允许键值重复，使用rb-tree的insert_unique来插入元素  
   
-- 13stl_multiset.h: multiset具有set所有的性质，唯一不同的是，multiset允许键值重复，它使用使用红黑树的insert_equal进行插入操作  
+- 13stl_multiset.h: multiset具有set所有的性质，唯一不同的是，multiset允许键值重复，使用红黑树的insert_equal进行插入操作  
   
 - 14stl_map.h: map的特性是：所有元素都会根据元素的键值被自动排序，map的所有元素都是pair，同时拥有实值（value）和键值（key），pair的第一元素被视为键值，第二元素被视为实值，通常通过仿函数select提取出节点的键值进行比较，我们能修改节点的实值但不能修改其键值，对其他元素操作时，其之前和之后的迭代器也都不回失效。map使用rb-tree作为底层容器，rb-tree提供了所有map需要的操作，map使用RB_tree的 insert_unique 来插入元素  
   
-- 15stl_multimap.h: multimap具有map所有的性质，唯一不同的是，multimap允许键值重复，它使用使用红黑树的insert_equal进行插入操作  
+- 15stl_multimap.h: multimap具有map所有的性质，唯一不同的是，multimap允许键值重复，使用红黑树的insert_equal进行插入操作  
   
-- 16stl_hashtable.h: 二叉搜索树具有对数平均时间的表现，但这样的表现是构造在一个假设上的：输入的数据具有足够的随机性，对于hashtable，它在插入、删除、搜寻等操作上也具有“常数平均时间”的表现，而且这种次表现是以统计为基础，不需要依赖数据输入的随机性。hashtable可提供对任何有名项的存取操作和删除操作，所以hashtable也可以被看做一种字典结构  
+- 16stl_hashtable.h: 二叉搜索树具有对数平均时间的表现，但这样的表现是构造在一个假设上的：输入的数据具有足够的随机性，对于hashtable，它在插入、删除、搜寻等操作上也具有“常数平均时间”的表现，而且这种次表现是以统计为基础，不需要依赖数据输入的随机性。hashtable可提供对任何有名项的存取操作和删除操作，所以hashtable也可以被看做一种字典结构。相较于rb-tree，当hashtable负载因子过大时，它有一个rehash过程，这个过程的时间复杂度为O(n)，因为它并不是简单的把每条开链复制过去，而是需要对每个元素进行rehash（想想这是为什么）  
+  
+- 17stl_hash_set.h: 运用set，为的是能够快速搜寻元素，这一点不论是rb-tree和hashtable都能够达到目的，但前者有自动排序功能而hashtable没有。hash_set使用hashtable作为底层容器，hashtable提供了所有hash_set需要的操作，hash_set不允许键值重复，使用hashtable的insert_unique来插入元素  
+  
+- 18stl_hash_multiset.h: hash_multiset具有hash_set所有的性质，唯一不同的是，hash_multiset允许键值重复，使用hashtable的insert_equal进行插入操作  
+  
+- 19stl_hash_map.h: hash_map除了不具备map自动排序的功能以外，具有map所有的特性。hash_map使用hashtable作为底层容器，hashtable提供了所有hash_map需要的操作，hash_map不允许键值重复，使用hashtable的insert_unique来插入元素  
+  
+- 20stl_hash_multimap.h: hash_multimap具有hash_map所有的性质，唯一不同的是，hash_multimap允许键值重复，它使用hashtable的insert_equal进行插入操作  
   
 ## Environment
-- OS: Ubuntu 18.04
+- OS: Ubuntu-18.04
 - Kernel: 5.0.0-27-generic
 - Complier: g++ 7.4.0
 - cmake: 3.10.2（如果你的版本过低请自行修改根目录下CMakeLists.txt内的版本号）
